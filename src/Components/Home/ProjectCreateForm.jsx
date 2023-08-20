@@ -27,7 +27,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
               <InputLabel
                 required
                 error={Boolean(error)}
-                htmlFor="form-input-productName"
+                htmlFor="form-input-projectName"
                 sx={{
                   color: "textBlack",
                   fontSize: "16px",
@@ -36,7 +36,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
                 Project Name
               </InputLabel>
               <TextField
-                id="form-input-productName"
+                id="form-input-projectName"
                 variant="outlined"
                 type="text"
                 placeholder="Product Name"
@@ -75,7 +75,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
               <InputLabel
                 required
                 error={Boolean(error)}
-                htmlFor="form-input-productName"
+                htmlFor="form-input-description"
                 sx={{
                   color: "textBlack",
                   fontSize: "16px",
@@ -84,7 +84,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
                 Product Description
               </InputLabel>
               <TextField
-                id="form-input-productName"
+                id="form-input-description"
                 variant="outlined"
                 type="text"
                 placeholder="Product Description"
@@ -123,7 +123,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
               <InputLabel
                 required
                 error={Boolean(error)}
-                htmlFor="form-input-productName"
+                htmlFor="form-input-client"
                 sx={{
                   color: "textBlack",
                   fontSize: "16px",
@@ -132,7 +132,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
                 Client
               </InputLabel>
               <TextField
-                id="form-input-productName"
+                id="form-input-client"
                 variant="outlined"
                 type="text"
                 placeholder="Client"
@@ -171,7 +171,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
               <InputLabel
                 required
                 error={Boolean(error)}
-                htmlFor="form-input-productName"
+                htmlFor="form-input-contractor"
                 sx={{
                   color: "textBlack",
                   fontSize: "16px",
@@ -180,7 +180,7 @@ const ProjectCreateForm = ({ control, setFormData, handleSubmit, reset }) => {
                 Contractor
               </InputLabel>
               <TextField
-                id="form-input-productName"
+                id="form-input-contractor"
                 variant="outlined"
                 type="text"
                 placeholder="Contractor"
