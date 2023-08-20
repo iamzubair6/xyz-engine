@@ -1,5 +1,12 @@
-import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  InputLabel,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { Fragment } from "react";
 import { Controller } from "react-hook-form";
 
 const Details = ({

@@ -9,6 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { AiOutlineMenuUnfold } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const pages = [
   { value: "Home", link: "/" },
@@ -17,6 +19,7 @@ const pages = [
 
 const TopAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,16 +50,23 @@ const TopAppBar = () => {
           XYZ Engine
         </Typography>
 
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "flex", md: "none" },
+            color: "red",
+          }}
+        >
           <IconButton
             size="large"
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
-            color="white"
-            sx={{ color: "black" }}
-          ></IconButton>
+            sx={{ color: "textWhite" }}
+          >
+            <AiOutlineMenuUnfold />
+          </IconButton>
           <Menu
             id="menu-appbar"
             anchorEl={anchorElNav}
@@ -72,10 +82,10 @@ const TopAppBar = () => {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
             sx={{
-              display: { xs: "block", md: "none" },
+              display: { xs: "block", md: "none", color: "black" },
             }}
           >
-            {pages.map(({ value, link }, idx) => (
+            {pages.map(({ value }, idx) => (
               <MenuItem key={idx} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">{value}</Typography>
               </MenuItem>
@@ -104,7 +114,7 @@ const TopAppBar = () => {
           {pages.map(({ value, link }, idx) => (
             <Button
               key={idx}
-              onClick={handleCloseNavMenu}
+              onClick={() => navigate(link)}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {value}
