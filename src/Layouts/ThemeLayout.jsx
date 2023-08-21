@@ -52,7 +52,7 @@ const ThemeLayout = ({ children }) => {
               background: "#e0e0e0",
             },
             "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
-              background: "#3D464D",
+              background: "#4D7B52",
               borderRadius: "4px",
             },
             "&::-webkit-scrollbar-track:hover, & *::-webkit-scrollbar-track:hover":
@@ -219,7 +219,7 @@ const ThemeLayout = ({ children }) => {
           root: {
             "& .MuiTableCell-root": {
               color: "#FFFFFF",
-              backgroundColor: "#3B7197",
+              backgroundColor: "#4D7B52",
             },
           },
         },

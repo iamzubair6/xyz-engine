@@ -6,8 +6,11 @@ import {
 } from "react-router-dom";
 import MainLayout from "./Layouts/MainLayout";
 import Home from "./Pages/Home";
+import { useState } from "react";
+import ResultsTable from "./Pages/ResultsTable";
 
 function App() {
+  const [formData, setFormData] = useState({});
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -19,7 +22,11 @@ function App() {
           children: [
             {
               path: "",
-              element: <Home />,
+              element: <Home formData={formData} setFormData={setFormData} />,
+            },
+            {
+              path: "results",
+              element: <ResultsTable formData={formData} />,
             },
           ],
         },

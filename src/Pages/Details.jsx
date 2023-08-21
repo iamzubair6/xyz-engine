@@ -9,74 +9,20 @@ import {
 import Papa from "papaparse";
 import React, { Fragment, useState } from "react";
 import { Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const Details = ({
   formData = {},
   control,
   setFormData,
   handleSubmit,
+  setValue,
   reset,
 }) => {
   const [csvData, setCsvData] = useState([]);
-  const [calculateMinMax, setCalculateMinMax] = useState({});
-  console.log(csvData);
+  const navigate = useNavigate();
 
-  // const handleFileUpload = (e) => {
-  //   const file = e.target.files[0];
-
-  //   Papa.parse(file, {
-  //     header: true,
-  //     complete: (results) => {
-  //       setCsvData(results.data);
-  //     },
-
-  //   });
-  // };
-
-  // const handleFileUpload = async (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const text = await file.text();
-  //     console.log("text", text);
-  //     Papa.parse(text, {
-  //       delimiter: "\t",
-  //       header: true,
-  //       complete: (result) => {
-  //         const data = result.data;
-  //         console.log("data", data);
-  //         let max_x = -Infinity;
-  //         let min_x = Infinity;
-  //         let max_y = -Infinity;
-  //         let min_y = Infinity;
-  //         let max_z = -Infinity;
-  //         let min_z = Infinity;
-
-  //         for (const row of data) {
-  //           const x = parseFloat(row.X);
-  //           const y = parseFloat(row.Y);
-  //           const z = parseFloat(row.Z);
-
-  //           if (!isNaN(x)) {
-  //             max_x = Math.max(max_x, x);
-  //             min_x = Math.min(min_x, x);
-  //           }
-
-  //           if (!isNaN(y)) {
-  //             max_y = Math.max(max_y, y);
-  //             min_y = Math.min(min_y, y);
-  //           }
-
-  //           if (!isNaN(z)) {
-  //             max_z = Math.max(max_z, z);
-  //             min_z = Math.min(min_z, z);
-  //           }
-  //         }
-
-  //         setCsvData({ max_x, min_x, max_y, min_y, max_z, min_z });
-  //       },
-  //     });
-  //   }
-  // };
+  // function for upload csv file and get csv file minimum and maximum value
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -90,19 +36,52 @@ const Details = ({
         Z: parseFloat(row.Z),
       }));
 
-      const max_x = Math.max(...numericData.map((row) => row.X));
-      const min_x = Math.min(...numericData.map((row) => row.X));
-      const max_y = Math.max(...numericData.map((row) => row.Y));
-      const min_y = Math.min(...numericData.map((row) => row.Y));
-      const max_z = Math.max(...numericData.map((row) => row.Z));
-      const min_z = Math.min(...numericData.map((row) => row.Z));
+      // calculate max x
+      let max_x = -Infinity;
+      numericData.map((row) => {
+        if (row?.X > max_x) max_x = row?.X;
+        setValue("max_x", max_x);
+      });
+      // calculate min x
+      let min_x = Infinity;
+      numericData.map((row) => {
+        if (row?.X < min_x) min_x = row?.X;
+        setValue("min_x", min_x);
+      });
+      // calculate max y
+      let max_y = -Infinity;
+      numericData.map((row) => {
+        if (row?.Y > max_y) max_y = row?.Y;
+        setValue("max_y", max_y);
+      });
+      // calculate min y
+      let min_y = Infinity;
+      numericData.map((row) => {
+        if (row?.Y < min_y) min_y = row?.Y;
+        setValue("min_y", min_y);
+      });
+      // calculate max z
+      let max_z = -Infinity;
+      numericData.map((row) => {
+        if (row?.Z > max_z) max_z = row?.Z;
+        setValue("max_z", max_z);
+      });
+      // calculate min z
+      let min_z = Infinity;
+      numericData.map((row) => {
+        if (row?.Z < min_z) min_z = row?.Z;
+        setValue("min_z", min_z);
+      });
 
       setCsvData({ max_x, min_x, max_y, min_y, max_z, min_z });
     }
   };
-
-  // get csv file minimum and maximum value
-
+  const handleCsvSubmit = (data) => {
+    const submitCsvData = Boolean(data) ? data : csvData;
+    setFormData((prev) => ({ ...prev, ...submitCsvData }));
+    reset();
+    navigate("/results");
+  };
   return (
     <Box>
       {/* previous project details data */}
@@ -110,7 +89,7 @@ const Details = ({
         {Object.entries(formData).map(([key, value], idx, arr) => {
           const title = key.replace("_", " ");
           return (
-            <Box sx={{ mb: arr.length - 1 === idx ? "0px" : "35px" }}>
+            <Box key={idx} sx={{ mb: arr.length - 1 === idx ? "0px" : "35px" }}>
               <Typography
                 variant="body6"
                 color="textBlack"
@@ -141,19 +120,29 @@ const Details = ({
       {/* max and min number input */}
       <Paper
         component={"form"}
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
+        onSubmit={handleSubmit(handleCsvSubmit)}
         sx={{ p: "40px", mt: "30px" }}
       >
-        <Button
-          variant="button2"
-          onChange={handleFileUpload}
-          sx={{ gap: "5px" }}
-        >
-          Upload Csv
-          <input type="file" accept=".csv" />
-        </Button>
+        <Box sx={{ gap: "10px", display: "flex" }}>
+          <Button
+            variant="button2"
+            onChange={handleFileUpload}
+            sx={{ gap: "5px", color: "textWhite" }}
+          >
+            Upload Csv
+            <input type="file" accept=".csv" />
+          </Button>
+          <Button
+            type="reset"
+            variant="button4"
+            onClick={() => {
+              setCsvData([]), reset();
+            }}
+            sx={{ color: "textWhite" }}
+          >
+            Clear
+          </Button>
+        </Box>
         <Box sx={{ mt: "35px" }}>
           <Controller
             name={"max_x"}
@@ -165,7 +154,7 @@ const Details = ({
                 message: "Max X is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -182,6 +171,8 @@ const Details = ({
                   id="form-input-maxX"
                   variant="outlined"
                   type="number"
+                  value={value}
+                  // value={value ? value : csvData?.max_x}
                   placeholder="Max X"
                   {...field}
                   error={Boolean(error)}
@@ -213,7 +204,7 @@ const Details = ({
                 message: "Min X is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -231,6 +222,7 @@ const Details = ({
                   variant="outlined"
                   type="number"
                   placeholder="Min X"
+                  value={value}
                   {...field}
                   error={Boolean(error)}
                   helperText={Boolean(error) && error?.message}
@@ -261,7 +253,7 @@ const Details = ({
                 message: "Max Y is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -279,6 +271,7 @@ const Details = ({
                   variant="outlined"
                   type="number"
                   placeholder="Max Y"
+                  value={value}
                   {...field}
                   error={Boolean(error)}
                   helperText={Boolean(error) && error?.message}
@@ -309,7 +302,7 @@ const Details = ({
                 message: "Min Y is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -327,6 +320,7 @@ const Details = ({
                   variant="outlined"
                   type="number"
                   placeholder="Min Y"
+                  value={value}
                   {...field}
                   error={Boolean(error)}
                   helperText={Boolean(error) && error?.message}
@@ -348,7 +342,7 @@ const Details = ({
         </Box>
         <Box sx={{ my: "35px" }}>
           <Controller
-            name={"max_Z"}
+            name={"max_z"}
             control={control}
             defaultValue={""}
             rules={{
@@ -357,7 +351,7 @@ const Details = ({
                 message: "Max Z is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -375,6 +369,7 @@ const Details = ({
                   variant="outlined"
                   type="number"
                   placeholder="Max Z"
+                  value={value}
                   {...field}
                   error={Boolean(error)}
                   helperText={Boolean(error) && error?.message}
@@ -405,7 +400,7 @@ const Details = ({
                 message: "Min Z is required",
               },
             }}
-            render={({ field, fieldState: { error } }) => (
+            render={({ field: { value, ...field }, fieldState: { error } }) => (
               <Fragment>
                 <InputLabel
                   required
@@ -423,6 +418,7 @@ const Details = ({
                   variant="outlined"
                   type="number"
                   placeholder="Min Z"
+                  value={value}
                   {...field}
                   error={Boolean(error)}
                   helperText={Boolean(error) && error?.message}

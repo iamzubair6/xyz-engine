@@ -30,7 +30,12 @@ const TopAppBar = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "color6.main" }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        bgcolor: "color6.main",
+      }}
+    >
       <Toolbar>
         <Typography
           variant="h6"
