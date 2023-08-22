@@ -24,9 +24,7 @@ ChartJs.register(
 const Chart = () => {
   const [csvFile, setCsvFile] = useState({ datasets: [] });
   const [chartOption, setChartOption] = useState({});
-  // let KP = csvFile.map((item) => parseInt(item.KP));
-  // let X = csvFile.map((item) => parseInt(item.X));
-  console.log(csvFile);
+
   const { reset } = useForm();
 
   const handleFileUpload = async (event) => {
@@ -60,27 +58,10 @@ const Chart = () => {
       });
     }
   };
-
-  // const chartData = {
-  //   labels: KP,
-  //   datasets: [
-  //     {
-  //       label: "Y Values",
-  //       data: X,
-  //       fill: false,
-  //       borderColor: "rgba(75,192,192,1)",
-  //     },
-  //   ],
-  // };
-
-  // const options = {
-  //   responsive: true,
-  //   maintainAspectRatio: false,
-  // };
-
   return (
-    <Box component={"form"} sx={{ mt: "100px" }}>
+    <Box sx={{ mt: "100px" }}>
       <Box
+        component={"form"}
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <Box sx={{ gap: "10px", display: "flex" }}>
@@ -96,7 +77,7 @@ const Chart = () => {
             type="reset"
             variant="button4"
             onClick={() => {
-              setCsvFile([]), reset();
+              setCsvFile({ datasets: [] }), reset();
             }}
             sx={{ color: "textWhite" }}
           >
@@ -104,7 +85,7 @@ const Chart = () => {
           </Button>
         </Box>
       </Box>
-      {csvFile.datasets ? (
+      {csvFile.datasets.length > 0 ? (
         <Box sx={{ mt: "20px" }}>
           <Bar height={100} options={chartOption} data={csvFile} />
         </Box>
