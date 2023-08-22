@@ -8,6 +8,7 @@ import MainLayout from "./Layouts/MainLayout";
 import Home from "./Pages/Home";
 import { useState } from "react";
 import ResultsTable from "./Pages/ResultsTable";
+import Chart from "./Pages/Chart";
 
 function App() {
   const [formData, setFormData] = useState({});
@@ -27,6 +28,10 @@ function App() {
             {
               path: "results",
               element: <ResultsTable formData={formData} />,
+            },
+            {
+              path: "chart",
+              element: <Chart />,
             },
           ],
         },

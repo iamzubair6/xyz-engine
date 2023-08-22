@@ -36,7 +36,7 @@ const ResultsTable = ({ formData = {} }) => {
   };
   return (
     <>
-      {Boolean(Object.keys(formData)[0]) ? (
+      {Boolean(formData.max_x) ? (
         <Box
           sx={{
             display: "flex",
@@ -49,7 +49,7 @@ const ResultsTable = ({ formData = {} }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Project Name</TableCell>
-                  <TableCell align="right">Project Description</TableCell>
+                  <TableCell align="center">Project Description</TableCell>
                   <TableCell align="right">Client</TableCell>
                   <TableCell align="right">Contractor</TableCell>
                   <TableCell align="center">Max X</TableCell>
@@ -64,10 +64,22 @@ const ResultsTable = ({ formData = {} }) => {
                 <TableRow
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" align="center">
                     {formData?.project_name}
                   </TableCell>
-                  <TableCell align="center">{formData?.description}</TableCell>
+                  <TableCell align="center">
+                    <Typography
+                      sx={{
+                        maxWidth: "150px",
+                        maxHeight: "200px",
+                        overflow: "auto",
+                        whiteSpace: "break-spaces",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {formData?.description}
+                    </Typography>
+                  </TableCell>
                   <TableCell align="center">{formData?.client}</TableCell>
                   <TableCell align="center">{formData?.contractor}</TableCell>
                   <TableCell align="right">{formData?.max_x}</TableCell>
@@ -104,8 +116,8 @@ const ResultsTable = ({ formData = {} }) => {
           }}
         >
           <Typography variant="h3" sx={{ color: "#EA4335E6" }}>
-            No data available please go to home page and resubmit data to see
-            data table!!!
+            No data available please go to home page and submit all the
+            necessary data to see data table!!!
           </Typography>
           <Button
             variant="button1"

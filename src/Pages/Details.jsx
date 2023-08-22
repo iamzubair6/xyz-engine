@@ -35,7 +35,6 @@ const Details = ({
         Y: parseFloat(row.Y),
         Z: parseFloat(row.Z),
       }));
-
       // calculate max x
       let max_x = -Infinity;
       numericData.map((row) => {
@@ -103,7 +102,7 @@ const Details = ({
                 sx={{
                   border: 1,
                   borderColor: "primary.main",
-                  width: 1,
+                  width: "480px",
                   overflowX: "auto",
                   borderRadius: "5px",
                   padding: "7px 11px",

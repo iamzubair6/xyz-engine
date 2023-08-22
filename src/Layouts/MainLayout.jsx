@@ -15,21 +15,21 @@ const MainLayout = () => {
   }, [pathname]);
   const drawerWidth = "290px";
   return (
-    <Container maxWidth="xxl" sx={{ display: "flex" }}>
+    <Container maxWidth="xxl">
       <TopAppBar drawerWidth={drawerWidth} />
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+        // sx={{
+        //   flexGrow: 1,
+        //   minHeight: "100vh",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        // }}
       >
         <Box
           sx={{
-            flexGrow: 1,
+            // flexGrow: 1,
             height: 1,
           }}
         >

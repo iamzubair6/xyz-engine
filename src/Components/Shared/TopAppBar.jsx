@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 const pages = [
   { value: "Home", link: "/" },
   { value: "Results", link: "/results" },
+  { value: "Chart", link: "/chart" },
 ];
 
 const TopAppBar = () => {
