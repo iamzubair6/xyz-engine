@@ -34,7 +34,6 @@ const Home = ({ formData, setFormData }) => {
           reset={reset}
         />
       )}
-      ;
     </Box>
   );
 };
